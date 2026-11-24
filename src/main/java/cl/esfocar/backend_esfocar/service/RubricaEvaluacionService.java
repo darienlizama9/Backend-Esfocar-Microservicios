@@ -2,8 +2,8 @@ package cl.esfocar.backend_esfocar.service;
 
 import cl.esfocar.backend_esfocar.model.EvaluacionAlumno;
 import cl.esfocar.backend_esfocar.model.PlantillaRubrica;
-import cl.esfocar.backend_esfocar.repository.RubricaRepositories.EvaluacionAlumnoRepository;
-import cl.esfocar.backend_esfocar.repository.RubricaRepositories.PlantillaRubricaRepository;
+import cl.esfocar.backend_esfocar.repository.EvaluacionAlumnoRepository;
+import cl.esfocar.backend_esfocar.repository.PlantillaRubricaRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
