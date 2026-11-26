@@ -39,6 +39,12 @@ public class RubricaEvaluacionController {
         return ResponseEntity.ok(service.listarPlantillas());
     }
 
+    /** GET /api/rubricas/plantillas/{id} — Obtener plantilla por ID */
+    @GetMapping("/plantillas/{id}")
+    public ResponseEntity<PlantillaRubrica> obtenerPlantilla(@PathVariable Long id) {
+        return ResponseEntity.ok(service.obtenerPlantillaPorId(id));
+    }
+
     /** PUT /api/rubricas/plantillas/{id} — Editar plantilla */
     @PutMapping("/plantillas/{id}")
     public ResponseEntity<PlantillaRubrica> actualizarPlantilla(
@@ -58,7 +64,8 @@ public class RubricaEvaluacionController {
 
     /**
      * POST /api/rubricas/evaluar — Evaluar alumno.
-     * El docente envía los 4 puntajes; el service calcula nota y estado.
+     * Admite tanto el formato completo de EvaluacionAlumno como el modelo simple
+     * Rubrica enviado desde AppEsfocar (Android).
      */
     @PostMapping("/evaluar")
     public ResponseEntity<EvaluacionAlumno> evaluarAlumno(
@@ -68,12 +75,19 @@ public class RubricaEvaluacionController {
     }
 
     /**
-     * GET /api/rubricas/evaluaciones — Listar todas las evaluaciones (vista
-     * docente)
+     * GET /api/rubricas/evaluaciones — Listar todas las evaluaciones (vista docente)
      */
     @GetMapping("/evaluaciones")
     public ResponseEntity<List<EvaluacionAlumno>> listarEvaluaciones() {
         return ResponseEntity.ok(service.listarEvaluaciones());
+    }
+
+    /**
+     * GET /api/rubricas/evaluaciones/{id} — Obtener detalle de evaluación por ID
+     */
+    @GetMapping("/evaluaciones/{id}")
+    public ResponseEntity<EvaluacionAlumno> obtenerEvaluacion(@PathVariable Long id) {
+        return ResponseEntity.ok(service.obtenerEvaluacionPorId(id));
     }
 
     /** PUT /api/rubricas/evaluaciones/{id} — Editar feedback o puntajes */
@@ -86,7 +100,7 @@ public class RubricaEvaluacionController {
 
     /**
      * GET /api/rubricas/alumno/{rut} — El alumno ingresa su RUT y ve
-     * todas sus evaluaciones y feedback en su cuenta.
+     * todas sus evaluaciones y feedback en su cuenta (tolerante a formato).
      */
     @GetMapping("/alumno/{rut}")
     public ResponseEntity<List<EvaluacionAlumno>> verMisEvaluaciones(

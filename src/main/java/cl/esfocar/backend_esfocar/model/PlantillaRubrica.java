@@ -46,6 +46,14 @@ public class PlantillaRubrica {
 
     @PrePersist
     public void prePersist() {
-        this.fechaCreacion = LocalDateTime.now();
+        if (this.fechaCreacion == null) {
+            this.fechaCreacion = LocalDateTime.now();
+        }
+        if (this.tipo == null || this.tipo.isBlank()) {
+            this.tipo = "Individual";
+        }
+        if (this.puntajeMaximo == null || this.puntajeMaximo <= 0) {
+            this.puntajeMaximo = 20.0;
+        }
     }
 }
